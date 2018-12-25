@@ -1,0 +1,39 @@
+.ztree li span.button.pIcon_ico_open {
+    margin-right: 2px;
+    background: url(images/open.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.pIcon_ico_close {
+    margin-right: 2px;
+    background: url(images/close.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.add_ico_docu {
+    margin-right: 2px;
+    background: url(images/add.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.edit_ico_docu {
+    margin-right: 2px;
+    background: url(images/edit.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.remove_ico_docu {
+    margin-right: 2px;
+    background: url(images/remove.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemRoleFunctionTypeWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemRoleFunctionTypeWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+	<select id="getListVO" parameterType="cn.com.mapper.apdcn.model.DsSystemRoleFunctionTypeModel" resultType="cn.com.mapper.apdcn.vo.DsSystemRoleFunctionTypeVO">
+		SELECT
+			tb.*
+		FROM
+			ds_system_role_function_type tb 
+		WHERE 1 = 1 
+ 		<if test="rolefunctionid !=null and rolefunctionid !='' ">
+ 			AND tb.rolefunctionid = #{rolefunctionid,jdbcType=VARCHAR}
+ 		</if>
+ 		<if test="functiontypeid !=null and functiontypeid !='' ">
+ 			AND tb.functiontypeid = #{functiontypeid,jdbcType=VARCHAR}
+ 		</if>
+  </select>
+  
+  <select id="getListCount" parameterType="cn.com.mapper.apdcn.vo.DsSystemRoleFunctionTypeVO" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			ds_system_role_function_type tb
+		WHERE 1 = 1 
+ 		<if test="rolefunctionid !=null and rolefunctionid !='' ">
+ 			AND tb.rolefunctionid = #{rolefunctionid,jdbcType=VARCHAR}
+ 		</if>
+ 		<if test="functiontypeid !=null and functiontypeid !='' ">
+ 			AND tb.functiontypeid = #{functiontypeid,jdbcType=VARCHAR}
+ 		</if>
+  </select>
+  
+  <delete id="deleteByRolefunctionid" parameterType="java.lang.String">
+      delete from ds_system_role_function_type where rolefunctionid = '${rolefunctionid}'
+   </delete>
+</mapper>

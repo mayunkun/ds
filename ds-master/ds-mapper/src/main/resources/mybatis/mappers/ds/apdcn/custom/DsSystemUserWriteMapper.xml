@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemUserWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemUserWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+  	<resultMap id="BaseResultMap" type="cn.com.mapper.apdcn.pojo.DsSystemUser">
+		<!-- WARNING - @mbggenerated -->
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="idcard" jdbcType="VARCHAR" property="idcard" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="pwd" jdbcType="VARCHAR" property="pwd" />
+		<result column="state" jdbcType="VARCHAR" property="state" />
+	</resultMap>
+	<resultMap id="BaseResultMapSystemUserModel" extends="BaseResultMap" type="cn.com.mapper.apdcn.model.DsSystemUserModel">
+		<result column="roleid" jdbcType="VARCHAR" property="roleid" />
+		<result column="rolename" jdbcType="VARCHAR" property="rolename" />
+	</resultMap>
+	
+	<select id="getListVO" parameterType="cn.com.mapper.apdcn.vo.DsSystemUserVO" resultMap="BaseResultMapSystemUserModel">
+		select tsu.*, tsr.id as roleid, tsr.name as rolename
+		from ds_system_user tsu, ds_system_role tsr, ds_system_user_role tsru
+		where tsu.state != -1 and tsu.id = tsru.userid and tsr.id = tsru.roleid
+		<if test="username !=null and username !=''">
+			AND tsu.username like CONCAT('%',#{username},'%')
+		</if>
+		<if test="phone !=null and phone !=''">
+			AND tsu.phone = #{phone}
+		</if>
+		<if test="orderby!=null and orderby !=''">
+			order by ${orderby}
+		</if>
+	    <if test="rows!=null">
+		    limit
+			<if test="start!=null">
+			     ${start},
+			</if>
+		     ${rows}
+   		</if>
+	</select>
+  
+  	<select id="loginUser" parameterType="map" resultMap="BaseResultMapSystemUserModel">
+	  	select tsu.*, tsr.id as roleid, tsr.name as rolename
+		from ds_system_user tsu, ds_system_role tsr, ds_system_user_role tsru
+		where tsu.state != -1 and tsu.id = tsru.userid and tsr.id = tsru.roleid 
+	  	and tsu.username = #{phone} and t.pwd = #{pwd}
+  	</select>
+  
+  	<select id="getUserByUserName" parameterType="map" resultMap="BaseResultMapSystemUserModel">
+	  	select tsu.*, tsr.id as roleid, tsr.name as rolename
+		from ds_system_user tsu, ds_system_role tsr, ds_system_user_role tsru
+		where tsu.state != -1 and tsu.id = tsru.userid and tsr.id = tsru.roleid 
+	  	and tsu.username = #{username}
+  	</select>
+  
+  	<select id="loginUserByNameAndPwd" parameterType="map" resultMap="BaseResultMapSystemUserModel">
+	  	select tsu.*, tsr.id as roleid, tsr.name as rolename
+		from ds_system_user tsu, ds_system_role tsr, ds_system_user_role tsru
+		where tsu.state != -1 and tsu.id = tsru.userid and tsr.id = tsru.roleid  
+	  	and t.name = #{username} and t.pwd = #{pwd}
+  	</select>
+</mapper>

@@ -1,0 +1,61 @@
+.ztree li span.button.pIcon_ico_open {
+    margin-right: 2px;
+    background: url(images/open@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.pIcon_ico_close {
+    margin-right: 2px;
+    background: url(images/close@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.add_ico_docu {
+    margin-right: 2px;
+    background: url(images/add@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.edit_ico_docu {
+    margin-right: 2px;
+    background: url(images/edit@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.remove_ico_docu {
+    margin-right: 2px;
+    background: url(images/remove@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.search_ico_docu {
+    margin-right: 2px;
+    background: url(images/search@1.png) no-repeat scroll 0 0 transparent;
+    background-size: cover;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.icon05_ico_docu {
+    margin-right: 2px;
+    background: url(img/diy/7.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle
+}
+
+.ztree li span.button.icon06_ico_docu {
+    margin-right: 2px;
+    background: url(img/diy/8.png) no-repeat scroll 0 0 transparent;
+    vertical-align: top;
+    *vertical-align: middle
+}

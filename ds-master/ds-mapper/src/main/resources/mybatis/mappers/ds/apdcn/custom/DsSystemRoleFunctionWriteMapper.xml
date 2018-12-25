@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemRoleFunctionWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemRoleFunctionWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+  <resultMap id="BaseResultMap" type="cn.com.mapper.apdcn.model.DsSystemRoleFunctionModel">
+		<!-- WARNING - @mbggenerated -->
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="roleid" property="roleid" jdbcType="VARCHAR" />
+		<result column="functionid" property="functionid" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getListVO" parameterType="cn.com.mapper.apdcn.pojo.DsSystemRoleFunction" resultMap="BaseResultMap">
+		SELECT 
+			tsrf.*
+		FROM
+			ds_system_role_function tsrf
+		WHERE 1 = 1
+		<if test="roleid !=null and roleid !='' ">
+			AND tsrf.roleid = #{roleid,jdbcType=VARCHAR}
+		</if>
+		<if test="functionid !=null and functionid !='' ">
+			AND tsrf.functionid = #{functionid,jdbcType=VARCHAR}
+		</if>
+	</select> 
+	
+	<select id="getListCount" parameterType="cn.com.mapper.apdcn.pojo.DsSystemRoleFunction" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			ds_system_role_function_type tb
+		WHERE 1 = 1 
+			<if test="rolefunctionid !=null and rolefunctionid !='' ">
+				AND tb.rolefunctionid = #{rolefunctionid,jdbcType=VARCHAR}
+			</if>
+			<if test="functiontypeid !=null and functiontypeid !='' ">
+				AND tb.functiontypeid = #{functiontypeid,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<select id="getListByRoleid" parameterType="cn.com.mapper.apdcn.pojo.DsSystemRoleFunction" resultType="cn.com.mapper.apdcn.model.DsSystemFunctionModel">
+		select tsrf.*, tsrft.functiontypeid 
+		from ds_system_role_function tsrf, ds_system_role_function_type tsrft
+		where tsrf.id = tsrft.rolefunctionid
+		<if test="roleid !=null and roleid !='' ">
+			AND tsrf.roleid = #{roleid,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<delete id="deleteByRoleid" parameterType="java.lang.String">
+	    delete from ds_system_role_function where roleid = #{roleid}
+	 </delete>
+</mapper>

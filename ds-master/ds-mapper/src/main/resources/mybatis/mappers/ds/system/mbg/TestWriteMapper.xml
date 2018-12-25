@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemFunctionWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemFunctionWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+</mapper>

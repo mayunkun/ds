@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemRoleWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemRoleWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+  	<resultMap id="BaseResultMap" type="cn.com.mapper.apdcn.pojo.DsSystemRole">
+	    <!--
+	      WARNING - @mbggenerated
+	    -->
+	    <id column="id" jdbcType="VARCHAR" property="id" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="detail" jdbcType="VARCHAR" property="detail" />
+	    <result column="pid" jdbcType="VARCHAR" property="pid" />
+	    <result column="level" jdbcType="VARCHAR" property="level" />
+   	</resultMap>
+   	
+   	<resultMap id="BaseResultMapVO" type="cn.com.mapper.apdcn.vo.DsSystemRoleVO">
+	</resultMap>
+	
+	<select id="getListVO" parameterType="cn.com.mapper.apdcn.vo.DsSystemRoleVO" resultType="cn.com.mapper.apdcn.model.DsSystemRoleModel">
+		SELECT
+			tb.id
+			,tb.name
+			,tb.image_url imageUrl
+			,tb.detail
+			,tb.pid
+			,tb.level
+			,ts.name pName
+		FROM
+			ds_system_role tb left join ds_system_role ts on tb.pid = ts.id
+		WHERE
+			1 = 1 
+ 		<if test="name !=null and name !=''">
+			AND tb.name like CONCAT('%', #{name},'%')
+		</if>
+		<if test="level !=null and level !='' and level != '-1'.toString()">
+ 			AND tb.level = #{level,jdbcType=VARCHAR}
+ 		</if>
+		<if test="level == '-1'.toString()">
+			AND tb.level != '1'
+		</if>
+		<if test="orderby!=null and orderby !=''">
+			order by ${orderby}
+		</if>
+	    <if test="rows!=null">
+		    limit
+			<if test="start!=null">
+			     ${start},
+			</if>
+		     ${rows}
+	    </if>
+ 	</select>
+  
+ 	<select id="getListVOCount" parameterType="cn.com.mapper.apdcn.vo.DsSystemRoleVO" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			ds_system_role tb 
+		WHERE 1 = 1 
+ 		<if test="name !=null and name !=''">
+			AND tb.name like CONCAT('%', #{name},'%')
+		</if>
+		<if test="level !=null and level !='' and level != '-1'.toString()">
+ 			AND tb.level = #{level,jdbcType=VARCHAR}
+ 		</if>
+		<if test="level == '-1'.toString()">
+			AND tb.level != '1'
+		</if>
+  	</select>
+</mapper>

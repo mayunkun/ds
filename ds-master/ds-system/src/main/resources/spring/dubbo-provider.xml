@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://code.alibabatech.com/schema/dubbo  
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="ds-system" />
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+
+	<!-- 用dubbo协议在20881端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20881" />
+
+	<!-- 登录 -->
+	<dubbo:service interface="cn.com.service.login.LoginService" ref="loginService" retries="0" />
+	
+	<!-- 系统管理模块 -->
+	<!-- 角色 -->
+	<dubbo:service interface="cn.com.service.role.DsSystemRoleService" ref="dsSystemRoleService" retries="0" />
+	<!-- 功能 -->
+	<dubbo:service interface="cn.com.service.function.DsSystemFunctionService" ref="dsSystemFunctionService" retries="0" />
+	<!-- 角色功能类型 -->
+	<dubbo:service interface="cn.com.service.role.DsSystemRoleFunctionTypeService" ref="dsSystemRoleFunctionTypeService" retries="0" />
+	<!-- 角色功能 -->
+	<dubbo:service interface="cn.com.service.role.DsSystemRoleFunctionService" ref="dsSystemRoleFunctionService" retries="0" />
+	<!-- 用户功能 -->
+	<dubbo:service interface="cn.com.service.user.DsSystemUserService" ref="dsSystemUserService" retries="0" />
+</beans>  

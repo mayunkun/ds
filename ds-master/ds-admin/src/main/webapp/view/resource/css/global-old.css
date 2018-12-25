@@ -1,0 +1,93 @@
+/*格式化样式*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	font-family:PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,"sans-serif";
+	-webkit-font-smoothing: antialiased;
+}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:0}
+address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal}
+ol,ul {list-style:none}
+caption{text-align:left}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal}
+q:before,q:after {content:''}
+abbr,acronym { border:0}
+a{text-decoration: none; color:#333;}
+.bordernone{ border:0px;}
+.clear::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+a:hover,a:link{
+	text-decoration:none;
+}
+
+
+
+/*文字排版*/
+.f10{font-size:10px}
+.f11{font-size:11px}
+.f12{font-size:12px}
+.f13{font-size:13px}
+.f14{font-size:14px}
+.f15{font-size:15px}
+.f16{font-size:16px}
+.f17{font-size:17px}
+.f18{font-size:18px}
+.f19{font-size:19px}
+.f20{font-size:20px}
+.f21{font-size:21px}
+.f22{font-size:22px}
+.f23{font-size:23px}
+.f24{font-size:24px}
+.f25{font-size:25px}
+.f26{font-size:26px}
+.f27{font-size:27px}
+.f28{font-size:28px}
+.f29{font-size:29px}
+.fb{font-weight:bold}
+.fn{font-weight:normal}
+.t2{text-indent:2em}
+
+
+/*定位*/
+.tl{text-align:left}
+.tc{text-align:center}
+.tr{text-align:right}
+.fl{float:left;display:inline}
+.fr{float:right;display:inline}
+.cb{clear:both}
+.cl{clear:left}
+.cr{clear:right}
+.vm{vertical-align:middle}
+.pr{position:relative}
+.pa{position:absolute}
+.pf{position:fixed}
+.abs-right{position:absolute;right:0}
+.zoom{zoom:1}
+.hidden{visibility:hidden}
+.none{display:none}
+.clearfix{clear:both;}
+.ovfl-hidden{overflow: hidden;}
+
+/**
+ * 宽度、高度
+ */
+.h100 {height: 100%;}
+
+
+::-webkit-input-placeholder { 
+color: #ddd !important; 
+} 
+:-moz-placeholder { 
+color: #ddd !important;
+} 
+::-moz-placeholder { 
+color: #ddd !important;   
+} 
+:-ms-input-placeholder { 
+color: #ddd !important;   
+} 

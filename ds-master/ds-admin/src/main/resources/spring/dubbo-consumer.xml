@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="ds-admin" />
+
+	<!-- 注册中心地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+	
+	<!-- 登陆接口 -->
+	<dubbo:reference interface="cn.com.service.login.LoginService" id="loginService" check="false" />
+	<!-- 角色 -->
+	<dubbo:reference interface="cn.com.service.role.DsSystemRoleService" id="dsSystemRoleService" check="false" />
+	<!-- 角色功能 -->
+	<dubbo:reference interface="cn.com.service.role.DsSystemRoleFunctionService" id="dsSystemRoleFunctionService" check="false" />
+	<!-- 角色功能类型 -->
+	<dubbo:reference interface="cn.com.service.role.DsSystemRoleFunctionTypeService" id="dsSystemRoleFunctionTypeService" check="false" />
+	<!-- 功能 -->
+	<dubbo:reference interface="cn.com.service.function.DsSystemFunctionService" id="dsSystemFunctionService" check="false" />
+	<!-- 用户 -->
+	<dubbo:reference interface="cn.com.service.user.DsSystemUserService" id="dsSystemUserService" check="false" />
+	<!-- ceshi -->
+	<dubbo:reference interface="cn.com.service.user.SystemUserService" id="systemUserService" check="false" />
+
+
+</beans>  

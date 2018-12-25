@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.mapper.apdcn.custom.DsSystemFunctionWriteMapper" >
+  <!--
+   mbg mappers's namespace = cn.com.mapper.apdcn.mbg.MBGDsSystemFunctionWriteMapper
+  引用MBG里的元素,可以使用namespace.element的方式来调用.
+  -->
+  	<resultMap id="BaseResultMap" type="cn.com.mapper.apdcn.pojo.DsSystemFunction">
+		<!-- WARNING - @mbggenerated -->
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="pId" jdbcType="VARCHAR" property="pid" />
+		<result column="level" jdbcType="INTEGER" property="level" />
+		<result column="num" jdbcType="INTEGER" property="num" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+	</resultMap>
+
+	<resultMap id="BaseResultMapVO" type="cn.com.mapper.apdcn.vo.DsSystemFunctionVO">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="pId" property="pid" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+		<result column="num" property="num" jdbcType="INTEGER" />
+		<result column="iconcode" property="iconcode" jdbcType="VARCHAR" />
+		
+		<result column="menuname" jdbcType="VARCHAR" property="menuname" />
+		<result column="ismenu" jdbcType="VARCHAR" property="ismenu" />
+		<result column="pname" jdbcType="VARCHAR" property="pname" />
+		<result column="iconcode" jdbcType="VARCHAR" property="iconcode" />
+		<result column="piconcode" jdbcType="VARCHAR" property="piconcode" />
+		<result column="roleid" jdbcType="VARCHAR" property="roleid" />
+	</resultMap>
+
+	<resultMap id="MenuPowerVO" type="cn.com.mapper.system.vo.MenuPowerVO">
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="userfunctionid" property="userfunctionid" jdbcType="VARCHAR" />
+		<result column="typecode" property="typecode" jdbcType="VARCHAR" />
+		
+		<result column="rolefunctionid" property="rolefunctionid" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 超级管理员权限 -->
+	<select id="getSuperMenuPowerList" parameterType="cn.com.mapper.system.vo.MenuPowerVO" resultMap="MenuPowerVO">
+	select 
+		zsrf.functionid as userfunctionid,
+		zst.typecode as
+		typecode
+	from
+		ds_system_user_role zsur,
+		ds_system_role_function zsrf,
+		ds_system_role_function_type zsrft,
+		ds_system_type zst
+	where zsur.userid = #{userid,jdbcType=VARCHAR}
+	    and zsur.roleid = #{roleid,jdbcType=VARCHAR}
+		and zsrf.roleid = zsur.roleid
+		and zsrft.rolefunctionid = zsrf.id
+		and zst.id = zsrft.functiontypeid
+	</select>
+	
+	<select id="getMenuPowerListByRoleId" parameterType="cn.com.mapper.system.vo.MenuPowerVO" resultMap="MenuPowerVO">
+	select 
+		zsrf.functionid as rolefunctionid,
+		zst.typecode as
+		typecode
+	from
+		ds_system_role_function zsrf,
+		ds_system_role_function_type zsrft,
+		ds_system_type zst
+	where zsrf.roleid = #{roleid,jdbcType=VARCHAR}
+		and zsrft.rolefunctionid = zsrf.id
+		and zst.id = zsrft.functiontypeid
+	</select>
+
+	<select id="getVOList" parameterType="cn.com.mapper.apdcn.vo.DsSystemFunctionVO" resultMap="BaseResultMapVO">
+		SELECT
+		tb.*, tbt.typename as iconcode
+		FROM
+		ds_system_role_function zsrf
+		left join ds_system_function tb on tb.id = zsrf.functionid
+		left join ds_system_type tbt on tb.icon = tbt.id
+		left join ds_system_grouptype tbg on tbg.id = tbt.typegroupid
+		where zsrf.roleid = #{roleid,jdbcType=VARCHAR}
+		<if test="pid == '0'.toString() ">
+			AND tb.pId = '0'
+		</if>
+		<if test="pid == '-1'.toString() ">
+			AND tb.pId != '0'
+		</if>
+		order by tb.num, tb.id
+	</select>
+
+	<select id="getList" parameterType="cn.com.mapper.apdcn.pojo.DsSystemFunction" resultMap="BaseResultMap">
+		SELECT
+		tb.*, tbf.name as pname, tbt1.typename as iconcode, tbt2.typename as piconcode
+		FROM
+		ds_system_function tb
+		left join ds_system_function tbf on tb.pId = tbf.id
+		left join ds_system_type tbt1 on tb.icon = tbt1.id
+		left join ds_system_type tbt2 on tbf.icon = tbt2.id
+		WHERE 1=1
+		<if test="id!=null and id !='' ">
+			AND tb.id = #{id}
+		</if>
+		<if test="menuname !=null and menuname !='' ">
+			AND tb.name like CONCAT('%','${menuname}','%')
+		</if>
+		order by tb.num, tb.id
+	</select>
+
+	<select id="getListCount" parameterType="cn.com.mapper.apdcn.pojo.DsSystemFunction" resultType="int">
+		SELECT count(1) FROM ds_system_function tb
+	</select>
+
+	<select id="getListVO" parameterType="cn.com.mapper.apdcn.vo.DsSystemFunctionVO" resultMap="BaseResultMapVO">
+	SELECT
+		tb.*, tbf.name as pname, tbt1.typename as iconcode, tbt2.typename as piconcode
+	FROM
+		ds_system_function tb
+		left join ds_system_function tbf on tb.pId = tbf.id
+		left join ds_system_type tbt1 on tb.icon = tbt1.id
+		left join ds_system_type tbt2 on tbf.icon = tbt2.id
+	WHERE 1=1
+		<if test="menuname !=null and menuname !=''">
+			AND tb.name like CONCAT('%','${menuname}','%')
+		</if>
+		<if test="pid !=null and pid !=''">
+			AND tb.pId = #{pid}
+		</if>
+		<if test="level !=null">
+			AND tb.level = ${level}
+		</if>
+		<if test="orderby!=null and orderby !=''">
+			order by ${orderby}
+		</if>
+	    <if test="rows!=null">
+		    limit
+			<if test="start!=null">
+			     ${start},
+			</if>
+		    ${rows}
+	   </if>
+	</select>
+	
+	<select id="getListVOCount" parameterType="cn.com.mapper.apdcn.vo.DsSystemFunctionVO" resultType="int">
+	SELECT
+		count(1)
+	FROM
+		ds_system_function tb
+		left join ds_system_function tbf on tb.pId = tbf.id
+		left join ds_system_type tbt1 on tb.icon = tbt1.id
+		left join ds_system_type tbt2 on tbf.icon = tbt2.id
+	WHERE 1=1
+		<if test="menuname !=null and menuname !=''">
+			AND tb.name like CONCAT('%','${menuname}','%')
+		</if>
+		<if test="pid !=null and pid !=''">
+			AND tb.pId = #{pid}
+		</if>
+		<if test="level !=null">
+			AND tb.level = ${level}
+		</if>
+	</select>
+
+	<select id="getNodeList" parameterType="cn.com.mapper.apdcn.vo.DsSystemFunctionVO" resultMap="BaseResultMapVO">
+	SELECT
+		t2.id as id,
+		t2.name as name,
+		tbt.typename as iconcode,
+		t2.pId as pId,
+		t2.level as level,
+		'true' as ismenu,
+		'pIcon' AS iconSkin
+	FROM
+		ds_system_function t2
+		left join ds_system_type tbt on t2.icon = tbt.id
+		left join ds_system_grouptype tbg on tbg.id = tbt.typegroupid
+
+	UNION
+
+	SELECT
+		CONCAT(t1.id,'_',t.id) as id,
+		t1.typename as name,
+		tbt2.typename as
+		iconcode,
+		t.id as pId,
+		4 as level,
+		'false' as ismenu,
+		case 
+		WHEN t1.typecode = 'insertRole' THEN 'add'
+		WHEN t1.typecode = 'updateRole' THEN 'edit'
+		WHEN t1.typecode = 'deleteRole' THEN 'remove'
+        WHEN t1.typecode = 'searchRole' THEN 'search'
+        end  AS iconSkin
+	FROM
+		ds_system_function t
+		left join ds_system_type tbt2 on t.icon = tbt2.id
+		left join ds_system_grouptype tbg2 on tbg2.id = tbt2.typegroupid
+		INNER JOIN ds_system_type t1 ON t1.typegroupid = 4
+	WHERE
+		t.pId != '0'
+	</select>
+
+	<select id="getPList" parameterType="cn.com.mapper.apdcn.vo.DsSystemFunctionVO" resultMap="BaseResultMapVO">
+		SELECT
+		tb.*,tbt.typename as iconcode
+		FROM
+		ds_system_function tb
+		left join ds_system_type tbt on tb.icon = tbt.id
+		left join ds_system_grouptype tbg on tbg.id = tbt.typegroupid
+		WHERE
+		1 = 1
+		<if test="pid !=null and pid !='' ">
+			AND tb.pId = #{pid}
+		</if>
+	</select>
+</mapper>

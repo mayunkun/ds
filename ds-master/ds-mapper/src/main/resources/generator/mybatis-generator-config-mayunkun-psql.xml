@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="jdbc.properties" />
+	<context id="WriteDB2Tables" targetRuntime="MyBatis3"
+		defaultModelType="flat">
+		<property name="mergeable" value="false"></property>
+		<property name="defaultModelType" value="flat"></property>
+		<plugin type="cn.com.generate.plugins.PojosPlugin" />
+		<plugin type="cn.com.generate.plugins.AdditionJavaFilePlugin">
+			<property name="search" value="MBG" />
+			<property name="replace" value="" />
+			<property name="targetPackage" value="cn.com.mapper.apdcn.custom" />
+		</plugin>
+		<plugin type="cn.com.generate.plugins.SqlMapReturnIdPlugin" />
+		<plugin type="cn.com.generate.plugins.AdditionXmlFilePlugin">
+			<property name="search" value="MBG" />
+			<property name="replace" value="" />
+			<property name="nameSpaceSearch" value="mbg" />
+			<property name="nameSpaceReplace" value="custom" />
+			<property name="targetPackage" value="mybatis/mappers/ds/apdcn/custom" />
+		</plugin>
+		<plugin type="cn.com.generate.plugins.ExamplesPlugin">
+			<property name="parentExample" value="cn.com.mapper.BaseExample" />
+		</plugin>
+		<plugin type="cn.com.generate.plugins.PagingPlugin" />
+		<plugin type="cn.com.generate.plugins.ReTypePlugin">
+			<property name="fromFields" value="java.lang.Byte" />
+			<property name="toFields" value="java.lang.Integer" />
+		</plugin>
+		<plugin type="cn.com.generate.plugins.RenameFilePlugin">
+			<property name="priffix" value="MBG" />
+			<property name="suffix" value="" />
+		</plugin>
+		<plugin type="cn.com.generate.plugins.RenameFileByPatternPlugin">
+			<property name="search" value="Mapper" />
+			<property name="replace" value="WriteMapper" />
+		</plugin>
+		<commentGenerator type="cn.com.generate.api.MyCommentGenerator">
+			<property name="suppressAllComments" value="false" />
+		</commentGenerator>
+		
+		<jdbcConnection connectionURL="${jdbc.url}"
+			driverClass="${jdbc.driver}" password="${jdbc.password}" userId="${jdbc.username}">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<javaModelGenerator targetPackage="cn.com.mapper.apdcn.pojo"
+			targetProject="D:/GIT/ds/ds-mapper/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="mybatis/mappers/ds/apdcn/mbg"
+			targetProject="D:/GIT/ds/ds-mapper/src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="cn.com.mapper.apdcn.mbg"
+			 targetProject="D:/GIT/ds/ds-mapper/src/main/java">
+
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		
+		<table tableName="ds_system_role" domainObjectName="DsSystemRole"
+			enableUpdateByExample="true" enableDeleteByExample="true"
+			enableCountByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true">
+		</table>
+		
+	</context>
+	
+</generatorConfiguration>

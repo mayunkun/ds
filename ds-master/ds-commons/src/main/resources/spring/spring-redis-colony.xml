@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd         
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+			
+<!-- 	<context:property-placeholder location="classpath:redis-colony.properties" ignore-unresolvable="true"  /> -->
+	
+	 <!--配置 jedis pool-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="${redis.pool.maxTotal}"/>
+        <!-- 最大空闲时间 -->
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <!-- 每次最大连接数 -->
+        <property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"/>
+        <!-- 释放扫描的扫描间隔 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}"/>
+        <!-- 连接的最小空闲时间 -->
+        <property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}"/>
+        <!-- 连接控歘按时间多久后释放，当空闲时间>该值且空闲连接>最大空闲连接数时直接释放 -->
+        <property name="softMinEvictableIdleTimeMillis" value="${redis.pool.softMinEvictableIdleTimeMillis}"/>
+        <!-- 获得链接时的最大等待毫秒数，小于0：阻塞不确定时间，默认-1 -->
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}"/>
+        <!-- 在获得链接的时候检查有效性，默认false -->
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+        <!-- 在空闲时检查有效性，默认false -->
+        <property name="testWhileIdle" value="${redis.pool.testWhileIdle}"/>
+        <!-- 连接耗尽时是否阻塞，false报异常，true阻塞超时 默认：true-->
+        <property name="blockWhenExhausted" value="${redis.pool.blockWhenExhausted}"/>
+    </bean>
+	
+	 <!--配置RedisClusterConfiguration-->
+    <bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+        <property name="maxRedirects" value="${redis.maxRedirects}"></property>
+        <property name="clusterNodes">
+            <set>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host1}"/>
+                    <constructor-arg name="port" value="${redis.port1}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host2}"/>
+                    <constructor-arg name="port" value="${redis.port2}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host3}"/>
+                    <constructor-arg name="port" value="${redis.port3}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host4}"/>
+                    <constructor-arg name="port" value="${redis.port4}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host5}"/>
+                    <constructor-arg name="port" value="${redis.port5}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.host6}"/>
+                    <constructor-arg name="port" value="${redis.port6}"/>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--配置JedisConnectionFactory-->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="clusterConfig" ref="redisClusterConfiguration"/>
+    </bean>
+
+    <!--redisTemplate-->
+    <!-- <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean> -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="keySerializer">   
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />   
+        </property>      
+        <property name="valueSerializer">   
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />   
+        </property>   
+        <property name="hashKeySerializer">     
+           <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>     
+        </property>   
+        <property name="hashValueSerializer">   
+           <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>     
+        </property>
+    </bean>
+    
+</beans>

@@ -1,0 +1,119 @@
+ul.nav.nav-tabs.ul-edit li.active a {
+    background: #3498db;
+}
+a:hover, a:focus {
+    color: #3498db;
+}
+ul.nav.nav-tabs.ul-edit {
+    border-bottom: 5px solid #3498db !important;
+}
+.qq-upload-list {
+    float: left;
+    box-shadow: none;
+}
+.qq-upload-list li.qq-upload-success {
+    background-color: inherit;
+    color: #424242;
+    border-bottom: none;
+    border-top: none;
+}
+.qq-upload-button-hover,.qq-upload-button-focus {
+    background: none;
+    outline: none;
+}
+.qq-upload-list li.list-item {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    margin-right: 10px;
+    border: none;
+}
+.list-item img {
+    display: block;
+    margin: 0;
+}
+.list-item .qq-btn {
+    margin-top: 5px;
+}
+.goods-specification {
+    border: 1px solid #dedede;
+}
+.goods-attr {
+    border: 1px solid #dedede;
+}
+.specification {
+    position: relative;
+    clear: both;
+}
+.specification-name {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 65px;
+}
+.specification-values {
+    margin-left: 65px;
+}
+.specification-value {
+    display: inline-block;
+    margin: 5px;
+}
+.specification-value-name,.fine-uploader {
+    display: inline-block;
+    vertical-align: middle;
+}
+.specification-value-name {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+.specification-value-name.selected {
+    background: #5cb85c;
+    border-color: #55b555;
+    color: #fff;
+}
+.table-selected-specification {
+    margin: 20px 0;
+}
+.table-selected-specification th {
+    text-align: center;
+    padding: 10px 0;
+}
+.table-selected-specification .td-val {
+    padding: 0 10px;
+}
+.goods-attribute {
+    position: relative;
+    margin: 15px 0;
+}
+.attr-name {
+    position: absolute;
+    width: 65px;
+}
+.attr-value {
+    margin-left: 65px;
+}
+.attr-value input {
+    width: 100%;
+}
+#model-slider-tab .control-label {
+    text-align: left;
+}
+#model-slider-tab .title {
+    display: block;
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dedede;
+    font-weight: 700;
+    font-size: 16px;
+}
+.fine-uploader,.goodsimg {
+    /* display: inline-block; */
+    float: left;
+}
+.goodsimg {
+    margin-left: 10px;
+    width: 200px;
+}
